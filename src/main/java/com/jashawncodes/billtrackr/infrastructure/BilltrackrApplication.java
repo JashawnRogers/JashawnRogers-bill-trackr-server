@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr;
+package com.jashawncodes.billtrackr.infrastructure;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
