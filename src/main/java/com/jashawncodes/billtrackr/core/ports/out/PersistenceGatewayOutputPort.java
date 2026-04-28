@@ -1,5 +1,6 @@
 package com.jashawncodes.billtrackr.core.ports.out;
 
+import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.RecurringInvoiceExpectation;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 
 import java.util.Optional;
@@ -12,4 +13,8 @@ public interface PersistenceGatewayOutputPort {
     Vendor save(Vendor vendor);
 
     Optional<Vendor> findByVendorId(UUID vendorId);
+
+    boolean existsByTrackedInvoiceKeyAndVendorId(String trackedInvoiceKey, UUID vendorId);
+
+    RecurringInvoiceExpectation save(RecurringInvoiceExpectation recurringInvoiceExpectation);
 }

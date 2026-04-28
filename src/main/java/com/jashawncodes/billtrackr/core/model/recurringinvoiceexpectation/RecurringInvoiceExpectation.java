@@ -7,20 +7,20 @@ import java.util.UUID;
 public class RecurringInvoiceExpectation {
     private final UUID id;
     private UUID vendorId;
-    private String trackedInvoiceKey;
+    private TrackedInvoiceKey trackedInvoiceKey;
     private RecurrenceRule recurrenceRule;
     private boolean active;
 
 
     public RecurringInvoiceExpectation(UUID id,
                                        UUID vendorId,
-                                       String trackedInvoiceKey,
+                                       TrackedInvoiceKey trackedInvoiceKey,
                                        RecurrenceRule recurrenceRule,
                                        boolean active
     ) {
         this.id = notNull(id);
         this.vendorId = notNull(vendorId);
-        this.trackedInvoiceKey = normalizeText(trackedInvoiceKey);
+        this.trackedInvoiceKey = notNull(trackedInvoiceKey);
         this.recurrenceRule = notNull(recurrenceRule);
         this.active = active;
     }
@@ -29,13 +29,13 @@ public class RecurringInvoiceExpectation {
     public static RecurringInvoiceExpectation createNew(
             UUID id,
             UUID vendorId,
-            String trackedInvoiceKey,
+            TrackedInvoiceKey trackedInvoiceKey,
             RecurrenceRule recurrenceRule
     ) {
         return new RecurringInvoiceExpectation(
                 notNull(id),
                 notNull(vendorId),
-                normalizeText(trackedInvoiceKey),
+                notNull(trackedInvoiceKey),
                 notNull(recurrenceRule),
                 true
         );
@@ -53,8 +53,8 @@ public class RecurringInvoiceExpectation {
         return this.vendorId.equals(notNull(vendorId));
     }
 
-    public void updateTrackedInvoiceKey(String newTrackedInvoiceKey) {
-        this.trackedInvoiceKey = normalizeText(newTrackedInvoiceKey);
+    public void updateTrackedInvoiceKey(TrackedInvoiceKey newTrackedInvoiceKey) {
+        this.trackedInvoiceKey = notNull(newTrackedInvoiceKey);
     }
 
     public void updateVendorId(UUID updatedVendorId) {
@@ -73,7 +73,7 @@ public class RecurringInvoiceExpectation {
         return vendorId;
     }
 
-    public String getTrackedInvoiceKey() {
+    public TrackedInvoiceKey getTrackedInvoiceKey() {
         return trackedInvoiceKey;
     }
 
