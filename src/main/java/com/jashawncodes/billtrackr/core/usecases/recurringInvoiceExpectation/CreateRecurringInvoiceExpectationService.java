@@ -23,29 +23,24 @@ public class CreateRecurringInvoiceExpectationService implements CreateRecurring
     }
 
     @Override
-    public RecurringInvoiceExpectation createNewRecurringInvoiceExpectation(
+    public CreateRecurringInvoiceExpectationResult createNewRecurringInvoiceExpectation(
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
             RecurrenceRule recurrenceRule
     ) {
-//        1. Verify that the vendorId exists
         Vendor vendor = persistenceGatewayOutputPort.findByVendorId(vendorId)
                 .orElseThrow(() -> new VendorDoesNotExistException("Vendor does not exist"));
 
-//        2. Verify that the vendor is active
         if (!vendor.isActive()) {
             throw new InactiveVendorException("Vendor is inactive");
         }
 
-//       3. Verify that a vendor does not have more than one recurring expectation with the same trackedInvoiceKey
         if (persistenceGatewayOutputPort.existsByTrackedInvoiceKeyAndVendorId(trackedInvoiceKey.trackedInvoiceKey(), vendor.getId())) {
             throw new DuplicateTrackedInvoiceKeyException("The vendor already has a tracked invoice key with the same name");
         }
 
-//       4. Generate id for RecurringInvoiceExpectation
         UUID recurringInvoiceExpectationId = idGeneratorOutputPort.generateNewUUID();
 
-//       5. Create RecurringInvoiceExpectation
         RecurringInvoiceExpectation recurringInvoiceExpectation = RecurringInvoiceExpectation.createNew(
                 recurringInvoiceExpectationId,
                 vendorId,
@@ -53,6 +48,14 @@ public class CreateRecurringInvoiceExpectationService implements CreateRecurring
                 recurrenceRule
         );
 
-        return persistenceGatewayOutputPort.save(recurringInvoiceExpectation);
+        RecurringInvoiceExpectation saved = persistenceGatewayOutputPort.save(recurringInvoiceExpectation);
+
+        return CreateRecurringInvoiceExpectationResult.of(
+                saved.getId(),
+                saved.getVendorId(),
+                saved.getTrackedInvoiceKey().trackedInvoiceKey(),
+                saved.getRecurrenceRule(),
+                saved.isActive()
+        );
     }
 }
