@@ -1,9 +1,16 @@
 package com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation;
 
 public enum RecurrenceType {
-    WEEKLY,
-    BI_WEEKLY,
-    MONTHLY,
-    QUARTERLY,
-    ANNUALLY
+    WEEKLY(1),
+    BI_WEEKLY(2),
+    MONTHLY(1),
+    QUARTERLY(3),
+    ANNUALLY(1);
+
+    final int convertedToInt;
+
+    RecurrenceType(int convertedToInt) {
+        this.convertedToInt = convertedToInt;
+    }
+
 };

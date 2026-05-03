@@ -11,7 +11,7 @@ import static com.jashawncodes.billtrackr.core.model.DomainValidator.*;
 public class ExpectedInvoice {
     private final UUID id;
     private final UUID recurringInvoiceExpectationId;
-    private final LocalDate occurrenceDate;
+    private final LocalDate expectedReceiveDate;
     private final DueDate dueDate;
     private LocalDate receivedDate;
     private InvoiceStatus invoiceStatus;
@@ -19,7 +19,7 @@ public class ExpectedInvoice {
 
     public ExpectedInvoice(UUID id,
                            UUID recurringInvoiceExpectationId,
-                           LocalDate occurrenceDate,
+                           LocalDate expectedReceiveDate,
                            DueDate dueDate,
                            LocalDate receivedDate,
                            InvoiceStatus invoiceStatus,
@@ -27,7 +27,7 @@ public class ExpectedInvoice {
     ) {
         this.id = notNull(id);
         this.recurringInvoiceExpectationId = notNull(recurringInvoiceExpectationId);
-        this.occurrenceDate = notNull(occurrenceDate);
+        this.expectedReceiveDate = notNull(expectedReceiveDate);
         this.dueDate = notNull(dueDate);
         this.receivedDate = receivedDate;
         this.invoiceStatus = notNull(invoiceStatus);
@@ -38,14 +38,14 @@ public class ExpectedInvoice {
     public static ExpectedInvoice createNew(
             UUID id,
             UUID recurringInvoiceExpectationId,
-            LocalDate occurrenceDate,
+            LocalDate expectedReceiveDate,
             DueDate dueDate,
             String note
     ) {
         return new ExpectedInvoice(
                 id,
                 recurringInvoiceExpectationId,
-                occurrenceDate,
+                expectedReceiveDate,
                 dueDate,
                 null,
                 InvoiceStatus.EXPECTED,
@@ -67,7 +67,7 @@ public class ExpectedInvoice {
     }
 
     public YearMonth calculateBillingPeriod() {
-        return YearMonth.from(occurrenceDate);
+        return YearMonth.from(expectedReceiveDate);
     }
 
     private void validateReceivedState() {
@@ -89,8 +89,8 @@ public class ExpectedInvoice {
         return id;
     }
 
-    public LocalDate getOccurrenceDate() {
-        return occurrenceDate;
+    public LocalDate getExpectedReceiveDate() {
+        return expectedReceiveDate;
     }
 
     public UUID getRecurringInvoiceExpectationId() {

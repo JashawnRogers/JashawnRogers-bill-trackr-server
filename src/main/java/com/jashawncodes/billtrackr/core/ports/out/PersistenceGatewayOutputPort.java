@@ -4,10 +4,11 @@ import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.Recurr
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface PersistenceGatewayOutputPort {
-
+//  Vendor
     boolean existsByVendorName(String vendorName);
 
     Vendor save(Vendor vendor);
@@ -16,5 +17,9 @@ public interface PersistenceGatewayOutputPort {
 
     boolean existsByTrackedInvoiceKeyAndVendorId(String trackedInvoiceKey, UUID vendorId);
 
+
+//  Recurring Invoice Expectations
     RecurringInvoiceExpectation save(RecurringInvoiceExpectation recurringInvoiceExpectation);
+
+    Set<RecurringInvoiceExpectation> findAllByIsActive();
 }

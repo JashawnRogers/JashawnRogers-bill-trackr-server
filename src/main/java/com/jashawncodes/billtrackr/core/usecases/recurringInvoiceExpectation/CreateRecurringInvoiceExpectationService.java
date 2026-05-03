@@ -28,7 +28,7 @@ public class CreateRecurringInvoiceExpectationService implements CreateRecurring
             TrackedInvoiceKey trackedInvoiceKey,
             RecurrenceRule recurrenceRule
     ) {
-        Vendor vendor = persistenceGatewayOutputPort.findByVendorId(vendorId)
+         Vendor vendor = persistenceGatewayOutputPort.findByVendorId(vendorId)
                 .orElseThrow(() -> new VendorDoesNotExistException("Vendor does not exist"));
 
         if (!vendor.isActive()) {
