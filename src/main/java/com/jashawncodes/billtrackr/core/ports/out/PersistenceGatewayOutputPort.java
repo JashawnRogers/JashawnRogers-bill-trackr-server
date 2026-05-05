@@ -1,10 +1,12 @@
 package com.jashawncodes.billtrackr.core.ports.out;
 
+import com.jashawncodes.billtrackr.core.model.expectedinvoice.ExpectedInvoice;
 import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.RecurringInvoiceExpectation;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public interface PersistenceGatewayOutputPort {
@@ -21,5 +23,12 @@ public interface PersistenceGatewayOutputPort {
 //  Recurring Invoice Expectations
     RecurringInvoiceExpectation save(RecurringInvoiceExpectation recurringInvoiceExpectation);
 
-    Set<RecurringInvoiceExpectation> findAllByIsActive();
+    List<RecurringInvoiceExpectation> findAllByIsActive();
+
+//  Expected Invoices
+    ExpectedInvoice save(ExpectedInvoice expectedInvoice);
+
+    boolean existsByExpectedReceiveDateAndRecurringInvoiceExpectationId(LocalDate date, UUID recurringInvoiceExpectationId);
+
+    Optional<ExpectedInvoice> findByExpectedReceiveDateAndRecurringInvoiceExpectationId(LocalDate date, UUID recurringInvoiceExpectationId);
 }

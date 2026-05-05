@@ -1,5 +1,7 @@
 package com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation;
 
+import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
+
 import static com.jashawncodes.billtrackr.core.model.DomainValidator.*;
 
 import java.util.UUID;
@@ -10,18 +12,21 @@ public class RecurringInvoiceExpectation {
     private TrackedInvoiceKey trackedInvoiceKey;
     private RecurrenceRule recurrenceRule;
     private boolean active;
+    private final PaymentTerms paymentTerms;
 
 
     public RecurringInvoiceExpectation(UUID id,
                                        UUID vendorId,
                                        TrackedInvoiceKey trackedInvoiceKey,
                                        RecurrenceRule recurrenceRule,
+                                       PaymentTerms paymentTerms,
                                        boolean active
     ) {
         this.id = notNull(id);
         this.vendorId = notNull(vendorId);
         this.trackedInvoiceKey = notNull(trackedInvoiceKey);
         this.recurrenceRule = notNull(recurrenceRule);
+        this.paymentTerms = paymentTerms;
         this.active = active;
     }
 
@@ -30,13 +35,15 @@ public class RecurringInvoiceExpectation {
             UUID id,
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
-            RecurrenceRule recurrenceRule
+            RecurrenceRule recurrenceRule,
+            PaymentTerms paymentTerms
     ) {
         return new RecurringInvoiceExpectation(
                 notNull(id),
                 notNull(vendorId),
                 notNull(trackedInvoiceKey),
                 notNull(recurrenceRule),
+                notNull(paymentTerms),
                 true
         );
     }
@@ -79,6 +86,10 @@ public class RecurringInvoiceExpectation {
 
     public RecurrenceRule getRecurrenceRule() {
         return recurrenceRule;
+    }
+
+    public PaymentTerms getPaymentTerms() {
+        return paymentTerms;
     }
 
     public boolean isActive() {

@@ -12,7 +12,7 @@ public class ExpectedInvoice {
     private final UUID id;
     private final UUID recurringInvoiceExpectationId;
     private final LocalDate expectedReceiveDate;
-    private final DueDate dueDate;
+    private final LocalDate dueDate;
     private LocalDate receivedDate;
     private InvoiceStatus invoiceStatus;
     private final String note;
@@ -20,7 +20,7 @@ public class ExpectedInvoice {
     public ExpectedInvoice(UUID id,
                            UUID recurringInvoiceExpectationId,
                            LocalDate expectedReceiveDate,
-                           DueDate dueDate,
+                           LocalDate dueDate,
                            LocalDate receivedDate,
                            InvoiceStatus invoiceStatus,
                            String note
@@ -39,7 +39,7 @@ public class ExpectedInvoice {
             UUID id,
             UUID recurringInvoiceExpectationId,
             LocalDate expectedReceiveDate,
-            DueDate dueDate,
+            LocalDate dueDate,
             String note
     ) {
         return new ExpectedInvoice(
@@ -101,7 +101,7 @@ public class ExpectedInvoice {
         return receivedDate;
     }
 
-    public DueDate getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
