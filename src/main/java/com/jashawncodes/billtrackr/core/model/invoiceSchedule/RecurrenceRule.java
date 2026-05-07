@@ -1,10 +1,9 @@
-package com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation;
+package com.jashawncodes.billtrackr.core.model.invoiceSchedule;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.jashawncodes.billtrackr.core.model.DomainValidator.notNull;
 

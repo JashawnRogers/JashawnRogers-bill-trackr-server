@@ -1,21 +1,22 @@
-package com.jashawncodes.billtrackr.core.usecases.recurringInvoiceExpectation;
+package com.jashawncodes.billtrackr.core.usecases.invoiceSchedule;
 
-import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.RecurrenceRule;
-import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.RecurringInvoiceExpectation;
-import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.TrackedInvoiceKey;
+import com.jashawncodes.billtrackr.core.model.invoiceSchedule.RecurrenceRule;
+import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
+import com.jashawncodes.billtrackr.core.model.invoiceSchedule.TrackedInvoiceKey;
+import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
-import com.jashawncodes.billtrackr.core.ports.in.CreateRecurringInvoiceExpectationUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.CreateInvoiceScheduleUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
 import com.jashawncodes.billtrackr.core.ports.out.PersistenceGatewayOutputPort;
 
 import java.util.UUID;
 
-public class CreateRecurringInvoiceExpectationService implements CreateRecurringInvoiceExpectationUseCase {
+public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCase {
     private final PersistenceGatewayOutputPort persistenceGatewayOutputPort;
     private final IdGeneratorOutputPort idGeneratorOutputPort;
 
-    public CreateRecurringInvoiceExpectationService(PersistenceGatewayOutputPort persistenceGatewayOutputPort,
-                                                    IdGeneratorOutputPort idGeneratorOutputPort
+    public CreateInvoiceScheduleService(PersistenceGatewayOutputPort persistenceGatewayOutputPort,
+                                        IdGeneratorOutputPort idGeneratorOutputPort
     ) {
 
         this.persistenceGatewayOutputPort = persistenceGatewayOutputPort;
@@ -23,10 +24,11 @@ public class CreateRecurringInvoiceExpectationService implements CreateRecurring
     }
 
     @Override
-    public CreateRecurringInvoiceExpectationResult createNewRecurringInvoiceExpectation(
+    public CreateInvoiceScheduleResult createNewInvoiceSchedule(
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
-            RecurrenceRule recurrenceRule
+            RecurrenceRule recurrenceRule,
+            PaymentTerms paymentTerms
     ) {
          Vendor vendor = persistenceGatewayOutputPort.findByVendorId(vendorId)
                 .orElseThrow(() -> new VendorDoesNotExistException("Vendor does not exist"));
@@ -39,22 +41,24 @@ public class CreateRecurringInvoiceExpectationService implements CreateRecurring
             throw new DuplicateTrackedInvoiceKeyException("The vendor already has a tracked invoice key with the same name");
         }
 
-        UUID recurringInvoiceExpectationId = idGeneratorOutputPort.generateNewUUID();
+        UUID invoiceScheduleId = idGeneratorOutputPort.generateNewUUID();
 
-        RecurringInvoiceExpectation recurringInvoiceExpectation = RecurringInvoiceExpectation.createNew(
-                recurringInvoiceExpectationId,
+        InvoiceSchedule invoiceSchedule = InvoiceSchedule.createNew(
+                invoiceScheduleId,
                 vendorId,
                 trackedInvoiceKey,
-                recurrenceRule
+                recurrenceRule,
+                paymentTerms
         );
 
-        RecurringInvoiceExpectation saved = persistenceGatewayOutputPort.save(recurringInvoiceExpectation);
+        InvoiceSchedule saved = persistenceGatewayOutputPort.save(invoiceSchedule);
 
-        return CreateRecurringInvoiceExpectationResult.of(
+        return CreateInvoiceScheduleResult.of(
                 saved.getId(),
                 saved.getVendorId(),
                 saved.getTrackedInvoiceKey().trackedInvoiceKey(),
                 saved.getRecurrenceRule(),
+                saved.getPaymentTerms(),
                 saved.isActive()
         );
     }

@@ -3,7 +3,7 @@ package com.jashawncodes.billtrackr.core.usecases.expectedInvoice;
 import com.jashawncodes.billtrackr.core.model.expectedinvoice.ExpectedInvoice;
 import com.jashawncodes.billtrackr.core.model.expectedinvoice.InvalidExpectedReceiveDateException;
 import com.jashawncodes.billtrackr.core.model.expectedinvoice.InvalidPaymentTermsException;
-import com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation.RecurringInvoiceExpectation;
+import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.ports.in.GenerateExpectedInvoicesForMonthUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
@@ -29,36 +29,36 @@ public class GenerateExpectedInvoicesForMonthService implements GenerateExpected
             YearMonth yearMonth
     ) {
 
-//      Load all active recurring invoice expectations
-        List<RecurringInvoiceExpectation> activeRecurringInvoiceExpectations =
+//      Load all active invoice schedules
+        List<InvoiceSchedule> activeInvoiceSchedules =
                 persistenceGatewayOutputPort.findAllByIsActive();
 
 //      Instantiate empty list to hold expected invoices
         List<GenerateExpectedInvoicesForMonthUseCaseResult> expectedInvoices = new ArrayList<>();
 
-//      Loop through active expectations to produce all invoices within parameter's date range
-        for (RecurringInvoiceExpectation expectation : activeRecurringInvoiceExpectations) {
+//      Loop through active invoice schedules to produce all invoices within parameter's date range
+        for (InvoiceSchedule invoiceSchedule : activeInvoiceSchedules) {
 
-            List<LocalDate> expectedReceiveDates = expectation.getRecurrenceRule().datesWithin(yearMonth);
+            List<LocalDate> expectedReceiveDates = invoiceSchedule.getRecurrenceRule().datesWithin(yearMonth);
 
             for (LocalDate expectedReceiveDate : expectedReceiveDates) {
 
                 Optional<ExpectedInvoice> existingExpectedInvoice = persistenceGatewayOutputPort
                         .findByExpectedReceiveDateAndRecurringInvoiceExpectationId(
-                                expectedReceiveDate, expectation.getId()
+                                expectedReceiveDate, invoiceSchedule.getId()
                         );
 
-//              If expected invoice exists by expectedReceiveDate and expectation ID, retrieve it, map it...
+//              If expected invoice exists by expectedReceiveDate and invoiceSchedule ID, retrieve it, map it...
 //              and add to List of expected invoices
                 if (existingExpectedInvoice.isPresent()) {
 
                     GenerateExpectedInvoicesForMonthUseCaseResult expectedInvoiceResult =
                             new GenerateExpectedInvoicesForMonthUseCaseResult(
                             existingExpectedInvoice.get().getId(),
-                            expectation.getTrackedInvoiceKey().trackedInvoiceKey(),
+                            invoiceSchedule.getTrackedInvoiceKey().trackedInvoiceKey(),
                             existingExpectedInvoice.get().getExpectedReceiveDate(),
-                            calculateDueDate(existingExpectedInvoice.get().getExpectedReceiveDate(), expectation.getPaymentTerms()),
-                            expectation.getPaymentTerms(),
+                            calculateDueDate(existingExpectedInvoice.get().getExpectedReceiveDate(), invoiceSchedule.getPaymentTerms()),
+                            invoiceSchedule.getPaymentTerms(),
                             null,
                             existingExpectedInvoice.get().getInvoiceStatus(),
                             existingExpectedInvoice.get().getNote()
@@ -66,16 +66,16 @@ public class GenerateExpectedInvoicesForMonthService implements GenerateExpected
 
                     expectedInvoices.add(expectedInvoiceResult);
                 } else {
-//                  If expected invoice does not exist by expectedReceiveDate and expectation ID, create new, map it...
+//                  If expected invoice does not exist by expectedReceiveDate and invoiceSchedule ID, create new, map it...
 //                  and add it to List of expected invoices
 
                     UUID id = idGeneratorOutputPort.generateNewUUID();
 
                     ExpectedInvoice expectedInvoice = ExpectedInvoice.createNew(
                             id,
-                            expectation.getId(),
+                            invoiceSchedule.getId(),
                             expectedReceiveDate,
-                            calculateDueDate(expectedReceiveDate, expectation.getPaymentTerms()),
+                            calculateDueDate(expectedReceiveDate, invoiceSchedule.getPaymentTerms()),
                             null
                     );
 
@@ -84,10 +84,10 @@ public class GenerateExpectedInvoicesForMonthService implements GenerateExpected
                     GenerateExpectedInvoicesForMonthUseCaseResult expectedInvoiceResult =
                             new GenerateExpectedInvoicesForMonthUseCaseResult(
                             saved.getId(),
-                            expectation.getTrackedInvoiceKey().trackedInvoiceKey(),
+                            invoiceSchedule.getTrackedInvoiceKey().trackedInvoiceKey(),
                             expectedInvoice.getExpectedReceiveDate(),
                             saved.getDueDate(),
-                            expectation.getPaymentTerms(),
+                            invoiceSchedule.getPaymentTerms(),
                             null,
                             saved.getInvoiceStatus(),
                             expectedInvoice.getNote()

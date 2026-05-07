@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation;
+package com.jashawncodes.billtrackr.core.model.invoiceSchedule;
 
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 
@@ -6,7 +6,7 @@ import static com.jashawncodes.billtrackr.core.model.DomainValidator.*;
 
 import java.util.UUID;
 
-public class RecurringInvoiceExpectation {
+public class InvoiceSchedule {
     private final UUID id;
     private UUID vendorId;
     private TrackedInvoiceKey trackedInvoiceKey;
@@ -15,12 +15,12 @@ public class RecurringInvoiceExpectation {
     private final PaymentTerms paymentTerms;
 
 
-    public RecurringInvoiceExpectation(UUID id,
-                                       UUID vendorId,
-                                       TrackedInvoiceKey trackedInvoiceKey,
-                                       RecurrenceRule recurrenceRule,
-                                       PaymentTerms paymentTerms,
-                                       boolean active
+    public InvoiceSchedule(UUID id,
+                           UUID vendorId,
+                           TrackedInvoiceKey trackedInvoiceKey,
+                           RecurrenceRule recurrenceRule,
+                           PaymentTerms paymentTerms,
+                           boolean active
     ) {
         this.id = notNull(id);
         this.vendorId = notNull(vendorId);
@@ -31,14 +31,14 @@ public class RecurringInvoiceExpectation {
     }
 
 //    Static factory method to enforce domain rules
-    public static RecurringInvoiceExpectation createNew(
+    public static InvoiceSchedule createNew(
             UUID id,
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
             RecurrenceRule recurrenceRule,
             PaymentTerms paymentTerms
     ) {
-        return new RecurringInvoiceExpectation(
+        return new InvoiceSchedule(
                 notNull(id),
                 notNull(vendorId),
                 notNull(trackedInvoiceKey),

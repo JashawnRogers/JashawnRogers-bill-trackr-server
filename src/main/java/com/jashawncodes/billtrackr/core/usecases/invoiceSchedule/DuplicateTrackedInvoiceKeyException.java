@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.usecases.recurringInvoiceExpectation;
+package com.jashawncodes.billtrackr.core.usecases.invoiceSchedule;
 
 import com.jashawncodes.billtrackr.core.GenericInvoiceManagementException;
 

@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.model.recurringinvoiceexpectation;
+package com.jashawncodes.billtrackr.core.model.invoiceSchedule;
 
 public enum RecurrenceType {
     WEEKLY(1),
