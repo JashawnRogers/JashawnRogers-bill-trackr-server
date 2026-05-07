@@ -1,6 +1,6 @@
 package com.jashawncodes.billtrackr.core.ports.out;
 
-import com.jashawncodes.billtrackr.core.model.expectedinvoice.ExpectedInvoice;
+import com.jashawncodes.billtrackr.core.model.expectedInvoice.ExpectedInvoice;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 

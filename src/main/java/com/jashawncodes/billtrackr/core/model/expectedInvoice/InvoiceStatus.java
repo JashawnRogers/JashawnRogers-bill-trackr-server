@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.model.expectedinvoice;
+package com.jashawncodes.billtrackr.core.model.expectedInvoice;
 
 public enum InvoiceStatus {
     EXPECTED,

@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.model.expectedinvoice;
+package com.jashawncodes.billtrackr.core.model.expectedInvoice;
 
 import com.jashawncodes.billtrackr.core.GenericInvoiceManagementException;
 

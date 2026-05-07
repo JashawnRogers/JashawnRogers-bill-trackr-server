@@ -1,6 +1,6 @@
-package com.jashawncodes.billtrackr.core.usecases.expectedInvoice;
+package com.jashawncodes.billtrackr.core.useCases.generateExpectedInvoicesForMonth;
 
-import com.jashawncodes.billtrackr.core.model.expectedinvoice.InvoiceStatus;
+import com.jashawncodes.billtrackr.core.model.expectedInvoice.InvoiceStatus;
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 
 import java.time.LocalDate;

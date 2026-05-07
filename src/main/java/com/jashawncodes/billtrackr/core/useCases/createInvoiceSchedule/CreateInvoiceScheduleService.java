@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.usecases.invoiceSchedule;
+package com.jashawncodes.billtrackr.core.useCases.createInvoiceSchedule;
 
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.RecurrenceRule;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;

@@ -3,7 +3,7 @@ package com.jashawncodes.billtrackr.core.ports.in;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.RecurrenceRule;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.TrackedInvoiceKey;
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
-import com.jashawncodes.billtrackr.core.usecases.invoiceSchedule.CreateInvoiceScheduleResult;
+import com.jashawncodes.billtrackr.core.useCases.createInvoiceSchedule.CreateInvoiceScheduleResult;
 
 import java.util.UUID;
 

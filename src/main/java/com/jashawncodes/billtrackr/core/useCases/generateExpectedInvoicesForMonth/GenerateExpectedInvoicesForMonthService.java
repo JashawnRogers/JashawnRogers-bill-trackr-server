@@ -1,8 +1,8 @@
-package com.jashawncodes.billtrackr.core.usecases.expectedInvoice;
+package com.jashawncodes.billtrackr.core.useCases.generateExpectedInvoicesForMonth;
 
-import com.jashawncodes.billtrackr.core.model.expectedinvoice.ExpectedInvoice;
-import com.jashawncodes.billtrackr.core.model.expectedinvoice.InvalidExpectedReceiveDateException;
-import com.jashawncodes.billtrackr.core.model.expectedinvoice.InvalidPaymentTermsException;
+import com.jashawncodes.billtrackr.core.model.expectedInvoice.ExpectedInvoice;
+import com.jashawncodes.billtrackr.core.model.expectedInvoice.InvalidExpectedReceiveDateException;
+import com.jashawncodes.billtrackr.core.model.expectedInvoice.InvalidPaymentTermsException;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.ports.in.GenerateExpectedInvoicesForMonthUseCase;

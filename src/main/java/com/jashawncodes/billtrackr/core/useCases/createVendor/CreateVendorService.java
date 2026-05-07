@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.usecases.vendor;
+package com.jashawncodes.billtrackr.core.useCases.createVendor;
 
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
