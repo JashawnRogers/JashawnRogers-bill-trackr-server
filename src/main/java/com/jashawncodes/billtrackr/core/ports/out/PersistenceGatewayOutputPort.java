@@ -20,15 +20,15 @@ public interface PersistenceGatewayOutputPort {
     boolean existsByTrackedInvoiceKeyAndVendorId(String trackedInvoiceKey, UUID vendorId);
 
 
-//  Recurring Invoice Expectations
+//  Invoice Schedule
     InvoiceSchedule save(InvoiceSchedule invoiceSchedule);
 
     List<InvoiceSchedule> findAllByIsActive();
 
-//  Expected Invoices
+//  Expected Invoice
     ExpectedInvoice save(ExpectedInvoice expectedInvoice);
 
-    boolean existsByExpectedReceiveDateAndRecurringInvoiceExpectationId(LocalDate date, UUID recurringInvoiceExpectationId);
+    Optional<ExpectedInvoice> findById(UUID id);
 
     Optional<ExpectedInvoice> findByExpectedReceiveDateAndRecurringInvoiceExpectationId(LocalDate date, UUID recurringInvoiceExpectationId);
 }
