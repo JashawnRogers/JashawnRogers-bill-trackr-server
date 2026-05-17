@@ -7,19 +7,23 @@ import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 import com.jashawncodes.billtrackr.core.ports.in.CreateInvoiceScheduleUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
-import com.jashawncodes.billtrackr.core.ports.out.PersistenceGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.InvoiceScheduleGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;
 
 import java.util.UUID;
 
 public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCase {
-    private final PersistenceGatewayOutputPort persistenceGatewayOutputPort;
+    private final InvoiceScheduleGatewayOutputPort invoiceScheduleGateway;
+    private final VendorGatewayOutputPort vendorGateway;
     private final IdGeneratorOutputPort idGeneratorOutputPort;
 
-    public CreateInvoiceScheduleService(PersistenceGatewayOutputPort persistenceGatewayOutputPort,
+    public CreateInvoiceScheduleService(InvoiceScheduleGatewayOutputPort invoiceScheduleGateway,
+                                        VendorGatewayOutputPort vendorGateway,
                                         IdGeneratorOutputPort idGeneratorOutputPort
     ) {
 
-        this.persistenceGatewayOutputPort = persistenceGatewayOutputPort;
+        this.invoiceScheduleGateway = invoiceScheduleGateway;
+        this.vendorGateway = vendorGateway;
         this.idGeneratorOutputPort = idGeneratorOutputPort;
     }
 
@@ -30,14 +34,14 @@ public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCas
             RecurrenceRule recurrenceRule,
             PaymentTerms paymentTerms
     ) {
-         Vendor vendor = persistenceGatewayOutputPort.findByVendorId(vendorId)
+         Vendor vendor = vendorGateway.findByVendorId(vendorId)
                 .orElseThrow(() -> new VendorDoesNotExistException("Vendor does not exist"));
 
         if (!vendor.isActive()) {
             throw new InactiveVendorException("Vendor is inactive");
         }
 
-        if (persistenceGatewayOutputPort.existsByTrackedInvoiceKeyAndVendorId(trackedInvoiceKey.trackedInvoiceKey(), vendor.getId())) {
+        if (vendorGateway.existsByTrackedInvoiceKeyAndVendorId(trackedInvoiceKey.trackedInvoiceKey(), vendor.getId())) {
             throw new DuplicateTrackedInvoiceKeyException("The vendor already has a tracked invoice key with the same name");
         }
 
@@ -51,7 +55,7 @@ public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCas
                 paymentTerms
         );
 
-        InvoiceSchedule saved = persistenceGatewayOutputPort.save(invoiceSchedule);
+        InvoiceSchedule saved = invoiceScheduleGateway.save(invoiceSchedule);
 
         return CreateInvoiceScheduleResult.of(
                 saved.getId(),

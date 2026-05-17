@@ -7,20 +7,24 @@ import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.ports.in.GenerateExpectedInvoicesForMonthUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
-import com.jashawncodes.billtrackr.core.ports.out.PersistenceGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.ExpectedInvoiceGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.InvoiceScheduleGatewayOutputPort;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 
 public class GenerateExpectedInvoicesForMonthService implements GenerateExpectedInvoicesForMonthUseCase {
-    private final PersistenceGatewayOutputPort persistenceGatewayOutputPort;
+    private final ExpectedInvoiceGatewayOutputPort expectedInvoiceGateway;
+    private final InvoiceScheduleGatewayOutputPort invoiceScheduleGateway;
     private final IdGeneratorOutputPort idGeneratorOutputPort;
 
-    public GenerateExpectedInvoicesForMonthService(PersistenceGatewayOutputPort persistenceGatewayOutputPort,
+    public GenerateExpectedInvoicesForMonthService(ExpectedInvoiceGatewayOutputPort expectedInvoiceGateway,
+                                                   InvoiceScheduleGatewayOutputPort invoiceScheduleGateway,
                                                    IdGeneratorOutputPort idGeneratorOutputPort
     ) {
-        this.persistenceGatewayOutputPort = persistenceGatewayOutputPort;
+        this.expectedInvoiceGateway = expectedInvoiceGateway;
+        this.invoiceScheduleGateway = invoiceScheduleGateway;
         this.idGeneratorOutputPort = idGeneratorOutputPort;
     }
 
@@ -31,7 +35,7 @@ public class GenerateExpectedInvoicesForMonthService implements GenerateExpected
 
 //      Load all active invoice schedules
         List<InvoiceSchedule> activeInvoiceSchedules =
-                persistenceGatewayOutputPort.findAllByIsActive();
+                invoiceScheduleGateway.findAllByIsActive();
 
 //      Instantiate empty list to hold expected invoices
         List<GenerateExpectedInvoicesForMonthUseCaseResult> expectedInvoices = new ArrayList<>();
@@ -43,7 +47,7 @@ public class GenerateExpectedInvoicesForMonthService implements GenerateExpected
 
             for (LocalDate expectedReceiveDate : expectedReceiveDates) {
 
-                Optional<ExpectedInvoice> existingExpectedInvoice = persistenceGatewayOutputPort
+                Optional<ExpectedInvoice> existingExpectedInvoice = expectedInvoiceGateway
                         .findByExpectedReceiveDateAndRecurringInvoiceExpectationId(
                                 expectedReceiveDate, invoiceSchedule.getId()
                         );
@@ -79,7 +83,7 @@ public class GenerateExpectedInvoicesForMonthService implements GenerateExpected
                             null
                     );
 
-                    ExpectedInvoice saved = persistenceGatewayOutputPort.save(expectedInvoice);
+                    ExpectedInvoice saved = expectedInvoiceGateway.save(expectedInvoice);
 
                     GenerateExpectedInvoicesForMonthUseCaseResult expectedInvoiceResult =
                             new GenerateExpectedInvoicesForMonthUseCaseResult(

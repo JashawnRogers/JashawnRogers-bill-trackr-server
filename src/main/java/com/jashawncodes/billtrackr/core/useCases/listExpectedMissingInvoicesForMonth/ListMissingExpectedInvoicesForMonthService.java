@@ -2,17 +2,17 @@ package com.jashawncodes.billtrackr.core.useCases.listExpectedMissingInvoicesFor
 
 import com.jashawncodes.billtrackr.core.model.expectedInvoice.InvoiceStatus;
 import com.jashawncodes.billtrackr.core.ports.in.ListMissingExpectedInvoicesForMonthUseCase;
-import com.jashawncodes.billtrackr.core.ports.out.PersistenceGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.ExpectedInvoiceGatewayOutputPort;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
 public class ListMissingExpectedInvoicesForMonthService implements ListMissingExpectedInvoicesForMonthUseCase {
-    private final PersistenceGatewayOutputPort persistenceGatewayOutputPort;
+    private final ExpectedInvoiceGatewayOutputPort expectedInvoiceGateway;
 
-    public ListMissingExpectedInvoicesForMonthService(PersistenceGatewayOutputPort persistenceGatewayOutputPort) {
-        this.persistenceGatewayOutputPort = persistenceGatewayOutputPort;
+    public ListMissingExpectedInvoicesForMonthService(ExpectedInvoiceGatewayOutputPort expectedInvoiceGateway) {
+        this.expectedInvoiceGateway = expectedInvoiceGateway;
     }
 
 
@@ -29,7 +29,7 @@ public class ListMissingExpectedInvoicesForMonthService implements ListMissingEx
         LocalDate end = yearMonth.atEndOfMonth();
 
 //      Return list from query
-        return persistenceGatewayOutputPort
+        return expectedInvoiceGateway
                 .findByInvoiceStatusAndExpectedReceiveDateBetween(InvoiceStatus.MISSING, start, end);
     }
 }

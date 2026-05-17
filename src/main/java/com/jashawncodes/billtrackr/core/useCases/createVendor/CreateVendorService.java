@@ -5,24 +5,24 @@ import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 import com.jashawncodes.billtrackr.core.model.vendor.VendorName;
 import com.jashawncodes.billtrackr.core.ports.in.CreateVendorUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
-import com.jashawncodes.billtrackr.core.ports.out.PersistenceGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;
 
 import java.util.UUID;
 
 public class CreateVendorService implements CreateVendorUseCase {
 
-    private final PersistenceGatewayOutputPort persistenceGateway;
+    private final VendorGatewayOutputPort vendorGateway;
     private final IdGeneratorOutputPort idGeneratorOutputPort;
 
-    public CreateVendorService(PersistenceGatewayOutputPort persistenceGateway, IdGeneratorOutputPort idGeneratorOutputPort) {
-        this.persistenceGateway = persistenceGateway;
+    public CreateVendorService(VendorGatewayOutputPort vendorGateway, IdGeneratorOutputPort idGeneratorOutputPort) {
+        this.vendorGateway = vendorGateway;
         this.idGeneratorOutputPort = idGeneratorOutputPort;
     }
 
     @Override
     public Vendor createNewVendor(VendorName vendorName, PaymentTerms paymentTerms) {
         String normalizedVendorName = vendorName.name();
-        if (persistenceGateway.existsByVendorName(normalizedVendorName)) {
+        if (vendorGateway.existsByVendorName(normalizedVendorName)) {
             throw new DuplicateVendorException("A vendor with this name already exists");
         }
 
@@ -33,6 +33,6 @@ public class CreateVendorService implements CreateVendorUseCase {
                 paymentTerms
         );
 
-        return persistenceGateway.save(vendor);
+        return vendorGateway.save(vendor);
     }
 }

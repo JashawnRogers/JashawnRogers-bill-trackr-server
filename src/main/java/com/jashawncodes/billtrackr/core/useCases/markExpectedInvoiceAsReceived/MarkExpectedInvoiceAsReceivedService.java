@@ -4,16 +4,16 @@ import com.jashawncodes.billtrackr.core.NotFoundException;
 import com.jashawncodes.billtrackr.core.NullParameterException;
 import com.jashawncodes.billtrackr.core.model.expectedInvoice.ExpectedInvoice;
 import com.jashawncodes.billtrackr.core.ports.in.MarkExpectedInvoiceAsReceivedUseCase;
-import com.jashawncodes.billtrackr.core.ports.out.PersistenceGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.ports.out.gateways.ExpectedInvoiceGatewayOutputPort;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 public class MarkExpectedInvoiceAsReceivedService implements MarkExpectedInvoiceAsReceivedUseCase {
-    private final PersistenceGatewayOutputPort persistenceGatewayOutputPort;
+    private final ExpectedInvoiceGatewayOutputPort expectedInvoiceGateway;
 
-    public MarkExpectedInvoiceAsReceivedService(PersistenceGatewayOutputPort persistenceGatewayOutputPort) {
-        this.persistenceGatewayOutputPort = persistenceGatewayOutputPort;
+    public MarkExpectedInvoiceAsReceivedService(ExpectedInvoiceGatewayOutputPort expectedInvoiceGateway) {
+        this.expectedInvoiceGateway = expectedInvoiceGateway;
     }
 
     @Override
@@ -26,12 +26,12 @@ public class MarkExpectedInvoiceAsReceivedService implements MarkExpectedInvoice
             throw new NullParameterException("Invoice ID is required");
         }
 
-        ExpectedInvoice expectedInvoice = persistenceGatewayOutputPort.findById(expectedInvoiceId)
+        ExpectedInvoice expectedInvoice = expectedInvoiceGateway.findById(expectedInvoiceId)
                 .orElseThrow(() -> new NotFoundException("Invoice not found"));
 
         expectedInvoice.markAsReceived(receivedDate);
 
-        ExpectedInvoice saved = persistenceGatewayOutputPort.save(expectedInvoice);
+        ExpectedInvoice saved = expectedInvoiceGateway.save(expectedInvoice);
 
         return MarkExpectedInvoiceAsReceivedResult.of(
                 saved.getId(),
