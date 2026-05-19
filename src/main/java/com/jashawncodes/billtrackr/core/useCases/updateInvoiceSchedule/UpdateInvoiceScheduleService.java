@@ -1,5 +1,6 @@
 package com.jashawncodes.billtrackr.core.useCases.updateInvoiceSchedule;
 
+import com.jashawncodes.billtrackr.core.NotFoundException;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 import com.jashawncodes.billtrackr.core.ports.in.UpdateInvoiceScheduleUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.InvoiceScheduleGatewayOutputPort;
@@ -14,7 +15,8 @@ public class UpdateInvoiceScheduleService implements UpdateInvoiceScheduleUseCas
 
     @Override
     public UpdateInvoiceScheduleResult updateInvoiceSchedule(UpdateInvoiceScheduleCommand command) {
-        InvoiceSchedule invoiceSchedule = invoiceScheduleGateway.findById(command.invoiceScheduleId());
+        InvoiceSchedule invoiceSchedule = invoiceScheduleGateway.findById(command.invoiceScheduleId())
+                .orElseThrow(() -> new NotFoundException("Invoice schedule not found"));
 
         invoiceSchedule.update(
                 command.trackedInvoiceKey(),
