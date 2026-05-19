@@ -2,7 +2,6 @@ package com.jashawncodes.billtrackr.core.ports.out.gateways;
 
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface VendorGatewayOutputPort {
@@ -10,7 +9,7 @@ public interface VendorGatewayOutputPort {
 
     Vendor save(Vendor vendor);
 
-    Optional<Vendor> findByVendorId(UUID vendorId);
+    Vendor findById(UUID vendorId);
 
     boolean existsByTrackedInvoiceKeyAndVendorId(String trackedInvoiceKey, UUID vendorId);
 }

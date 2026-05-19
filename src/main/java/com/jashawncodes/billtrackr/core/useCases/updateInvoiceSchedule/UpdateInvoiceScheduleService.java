@@ -19,7 +19,6 @@ public class UpdateInvoiceScheduleService implements UpdateInvoiceScheduleUseCas
         invoiceSchedule.update(
                 command.trackedInvoiceKey(),
                 command.recurrenceRule(),
-                command.paymentTerms(),
                 command.active());
 
         InvoiceSchedule saved = invoiceScheduleGateway.save(invoiceSchedule);

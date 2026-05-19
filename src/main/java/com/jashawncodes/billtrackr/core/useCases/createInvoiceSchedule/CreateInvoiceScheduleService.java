@@ -34,7 +34,7 @@ public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCas
             RecurrenceRule recurrenceRule,
             PaymentTerms paymentTerms
     ) {
-         Vendor vendor = vendorGateway.findByVendorId(vendorId)
+         Vendor vendor = vendorGateway.findById(vendorId)
                 .orElseThrow(() -> new VendorDoesNotExistException("Vendor does not exist"));
 
         if (!vendor.isActive()) {

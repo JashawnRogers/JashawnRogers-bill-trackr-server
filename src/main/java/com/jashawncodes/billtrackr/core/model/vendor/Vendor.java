@@ -1,6 +1,7 @@
 package com.jashawncodes.billtrackr.core.model.vendor;
 
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.jashawncodes.billtrackr.core.model.DomainValidator.notNull;
@@ -34,6 +35,20 @@ public class Vendor {
                 paymentTerms,
                 true
         );
+    }
+
+    public void update(Optional<VendorName> vendorName,
+                       Optional<PaymentTerms> paymentTerms,
+                       Optional<Boolean> active){
+        vendorName.ifPresent(this::updateVendorName);
+        paymentTerms.ifPresent(this::updatePaymentTerms);
+        active.ifPresent(value -> {
+            if (value) {
+                this.activate();
+            } else {
+                this.deactivate();
+            }
+        });
     }
 
     public void updateVendorName(VendorName updatedVendorName) {

@@ -51,11 +51,9 @@ public class InvoiceSchedule {
 
     public void update(Optional<TrackedInvoiceKey> trackedInvoiceKey,
                        Optional<RecurrenceRule> recurrenceRule,
-                       Optional<PaymentTerms> paymentTerms,
                        Optional<Boolean> active) {
         trackedInvoiceKey.ifPresent(this::updateTrackedInvoiceKey);
         recurrenceRule.ifPresent(this::updateRecurrenceRule);
-        paymentTerms.ifPresent(this::updatePaymentTerms);
         active.ifPresent(value -> {
             if (value) {
                 this.activate();
