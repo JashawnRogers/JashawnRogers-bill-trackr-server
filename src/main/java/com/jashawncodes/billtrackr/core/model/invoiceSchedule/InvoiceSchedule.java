@@ -4,6 +4,7 @@ import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 
 import static com.jashawncodes.billtrackr.core.model.DomainValidator.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class InvoiceSchedule {
@@ -12,7 +13,7 @@ public class InvoiceSchedule {
     private TrackedInvoiceKey trackedInvoiceKey;
     private RecurrenceRule recurrenceRule;
     private boolean active;
-    private final PaymentTerms paymentTerms;
+    private PaymentTerms paymentTerms;
 
 
     public InvoiceSchedule(UUID id,
@@ -48,6 +49,22 @@ public class InvoiceSchedule {
         );
     }
 
+    public void update(Optional<TrackedInvoiceKey> trackedInvoiceKey,
+                       Optional<RecurrenceRule> recurrenceRule,
+                       Optional<PaymentTerms> paymentTerms,
+                       Optional<Boolean> active) {
+        trackedInvoiceKey.ifPresent(this::updateTrackedInvoiceKey);
+        recurrenceRule.ifPresent(this::updateRecurrenceRule);
+        paymentTerms.ifPresent(this::updatePaymentTerms);
+        active.ifPresent(value -> {
+            if (value) {
+                this.activate();
+            } else {
+                this.deactivate();
+            }
+        });
+    }
+
     public void activate() {
         active = true;
     }
@@ -60,16 +77,20 @@ public class InvoiceSchedule {
         return this.vendorId.equals(notNull(vendorId));
     }
 
-    public void updateTrackedInvoiceKey(TrackedInvoiceKey newTrackedInvoiceKey) {
-        this.trackedInvoiceKey = notNull(newTrackedInvoiceKey);
+    public void updateTrackedInvoiceKey(TrackedInvoiceKey trackedInvoiceKey) {
+        this.trackedInvoiceKey = notNull(trackedInvoiceKey);
+    }
+
+    public void updatePaymentTerms(PaymentTerms paymentTerms) {
+        this.paymentTerms = notNull(paymentTerms);
     }
 
     public void updateVendorId(UUID updatedVendorId) {
         this.vendorId = notNull(updatedVendorId);
     }
 
-    public void updateRecurrenceRule(RecurrenceRule newRecurrenceRule) {
-        this.recurrenceRule = notNull(newRecurrenceRule);
+    public void updateRecurrenceRule(RecurrenceRule recurrenceRule) {
+        this.recurrenceRule = notNull(recurrenceRule);
     }
 
     public UUID getId() {

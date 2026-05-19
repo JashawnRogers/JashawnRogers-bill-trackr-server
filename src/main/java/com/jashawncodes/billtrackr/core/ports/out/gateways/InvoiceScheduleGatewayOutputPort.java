@@ -3,7 +3,6 @@ package com.jashawncodes.billtrackr.core.ports.out.gateways;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface InvoiceScheduleGatewayOutputPort {
@@ -11,5 +10,5 @@ public interface InvoiceScheduleGatewayOutputPort {
 
     List<InvoiceSchedule> findAllByIsActive();
 
-    Optional<InvoiceSchedule> findById(UUID id);
+    InvoiceSchedule findById(UUID id);
 }
