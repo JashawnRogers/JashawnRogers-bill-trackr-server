@@ -13,4 +13,8 @@ public interface VendorGatewayOutputPort {
     Optional<Vendor> findById(UUID vendorId);
 
     boolean existsByTrackedInvoiceKeyAndVendorId(String trackedInvoiceKey, UUID vendorId);
+
+    boolean existsByTrackedInvoiceKeyAndVendorIdAndNot(String trackedInvoiceKey, UUID vendorId, UUID invoiceScheduleId);
+
+    boolean existsByVendorNameAndNot(String vendorName, UUID vendorId);
 }

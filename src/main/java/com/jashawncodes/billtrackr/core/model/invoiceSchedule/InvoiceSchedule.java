@@ -13,21 +13,18 @@ public class InvoiceSchedule {
     private TrackedInvoiceKey trackedInvoiceKey;
     private RecurrenceRule recurrenceRule;
     private boolean active;
-    private PaymentTerms paymentTerms;
 
 
     public InvoiceSchedule(UUID id,
                            UUID vendorId,
                            TrackedInvoiceKey trackedInvoiceKey,
                            RecurrenceRule recurrenceRule,
-                           PaymentTerms paymentTerms,
                            boolean active
     ) {
         this.id = notNull(id);
         this.vendorId = notNull(vendorId);
         this.trackedInvoiceKey = notNull(trackedInvoiceKey);
         this.recurrenceRule = notNull(recurrenceRule);
-        this.paymentTerms = paymentTerms;
         this.active = active;
     }
 
@@ -36,15 +33,13 @@ public class InvoiceSchedule {
             UUID id,
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
-            RecurrenceRule recurrenceRule,
-            PaymentTerms paymentTerms
+            RecurrenceRule recurrenceRule
     ) {
         return new InvoiceSchedule(
                 notNull(id),
                 notNull(vendorId),
                 notNull(trackedInvoiceKey),
                 notNull(recurrenceRule),
-                notNull(paymentTerms),
                 true
         );
     }
@@ -79,10 +74,6 @@ public class InvoiceSchedule {
         this.trackedInvoiceKey = notNull(trackedInvoiceKey);
     }
 
-    public void updatePaymentTerms(PaymentTerms paymentTerms) {
-        this.paymentTerms = notNull(paymentTerms);
-    }
-
     public void updateVendorId(UUID updatedVendorId) {
         this.vendorId = notNull(updatedVendorId);
     }
@@ -105,10 +96,6 @@ public class InvoiceSchedule {
 
     public RecurrenceRule getRecurrenceRule() {
         return recurrenceRule;
-    }
-
-    public PaymentTerms getPaymentTerms() {
-        return paymentTerms;
     }
 
     public boolean isActive() {

@@ -31,8 +31,7 @@ public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCas
     public CreateInvoiceScheduleResult createNewInvoiceSchedule(
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
-            RecurrenceRule recurrenceRule,
-            PaymentTerms paymentTerms
+            RecurrenceRule recurrenceRule
     ) {
          Vendor vendor = vendorGateway.findById(vendorId)
                 .orElseThrow(() -> new VendorDoesNotExistException("Vendor does not exist"));
@@ -51,8 +50,7 @@ public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCas
                 invoiceScheduleId,
                 vendorId,
                 trackedInvoiceKey,
-                recurrenceRule,
-                paymentTerms
+                recurrenceRule
         );
 
         InvoiceSchedule saved = invoiceScheduleGateway.save(invoiceSchedule);
@@ -62,7 +60,6 @@ public class CreateInvoiceScheduleService implements CreateInvoiceScheduleUseCas
                 saved.getVendorId(),
                 saved.getTrackedInvoiceKey().trackedInvoiceKey(),
                 saved.getRecurrenceRule(),
-                saved.getPaymentTerms(),
                 saved.isActive()
         );
     }

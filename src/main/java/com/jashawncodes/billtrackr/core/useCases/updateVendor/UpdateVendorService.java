@@ -4,6 +4,7 @@ import com.jashawncodes.billtrackr.core.NotFoundException;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 import com.jashawncodes.billtrackr.core.ports.in.UpdateVendorUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;
+import com.jashawncodes.billtrackr.core.useCases.createVendor.DuplicateVendorException;
 
 public class UpdateVendorService implements UpdateVendorUseCase {
     private final VendorGatewayOutputPort vendorGateway;
@@ -16,6 +17,12 @@ public class UpdateVendorService implements UpdateVendorUseCase {
     public UpdateVendorResult updateVendor(UpdateVendorCommand command) {
         Vendor vendor = vendorGateway.findById(command.vendorId())
                 .orElseThrow(() -> new NotFoundException("Vendor not found"));
+
+       command.vendorName().ifPresent(newVendorName -> {
+           if (vendorGateway.existsByVendorNameAndNot(newVendorName.name(), command.vendorId())) {
+               throw new DuplicateVendorException("A vendor with this name already exists");
+           }
+       });
 
         vendor.update(
                 command.vendorName(),

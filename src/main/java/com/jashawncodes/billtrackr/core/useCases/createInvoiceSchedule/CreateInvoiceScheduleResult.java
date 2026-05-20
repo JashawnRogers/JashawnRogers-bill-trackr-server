@@ -10,7 +10,6 @@ public record CreateInvoiceScheduleResult(
         UUID vendorId,
         String trackedInvoiceKey,
         RecurrenceRule recurrenceRule,
-        PaymentTerms paymentTerms,
         boolean active
 ) {
     public static CreateInvoiceScheduleResult of(
@@ -18,7 +17,6 @@ public record CreateInvoiceScheduleResult(
             UUID vendorId,
             String trackedInvoiceKey,
             RecurrenceRule recurrenceRule,
-            PaymentTerms paymentTerms,
             boolean active
     ) {
         return new CreateInvoiceScheduleResult(
@@ -26,7 +24,6 @@ public record CreateInvoiceScheduleResult(
                 vendorId,
                 trackedInvoiceKey,
                 recurrenceRule,
-                paymentTerms,
                 active
         );
     }
