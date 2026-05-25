@@ -1,5 +1,8 @@
 package com.jashawncodes.billtrackr.core.model.invoiceSchedule;
 
+/**
+ * Recurrence
+ */
 public enum RecurrenceType {
     WEEKLY(1),
     BI_WEEKLY(2),

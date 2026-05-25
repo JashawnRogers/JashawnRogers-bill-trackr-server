@@ -14,7 +14,7 @@ public interface ExpectedInvoiceGatewayOutputPort {
 
     Optional<ExpectedInvoice> findById(UUID id);
 
-    Optional<ExpectedInvoice> findByExpectedReceiveDateAndRecurringInvoiceExpectationId(LocalDate date, UUID recurringInvoiceExpectationId);
+    List<ExpectedInvoice> findExistingForSchedulesBetween(List<UUID> scheduleIds, LocalDate startDate, LocalDate endDate);
 
     List<MissingExpectedInvoiceReadModel> findByInvoiceStatusAndExpectedReceiveDateBetween(InvoiceStatus invoiceStatus, LocalDate start, LocalDate end);
 }

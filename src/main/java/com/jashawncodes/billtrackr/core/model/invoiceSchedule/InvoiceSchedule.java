@@ -13,19 +13,22 @@ public class InvoiceSchedule {
     private TrackedInvoiceKey trackedInvoiceKey;
     private RecurrenceRule recurrenceRule;
     private boolean active;
+    private final PaymentTerms paymentTerms;
 
 
     public InvoiceSchedule(UUID id,
                            UUID vendorId,
                            TrackedInvoiceKey trackedInvoiceKey,
                            RecurrenceRule recurrenceRule,
-                           boolean active
+                           boolean active,
+                           PaymentTerms paymentTerms
     ) {
         this.id = notNull(id);
         this.vendorId = notNull(vendorId);
         this.trackedInvoiceKey = notNull(trackedInvoiceKey);
         this.recurrenceRule = notNull(recurrenceRule);
         this.active = active;
+        this.paymentTerms = paymentTerms;
     }
 
 //    Static factory method to enforce domain rules
@@ -33,14 +36,16 @@ public class InvoiceSchedule {
             UUID id,
             UUID vendorId,
             TrackedInvoiceKey trackedInvoiceKey,
-            RecurrenceRule recurrenceRule
+            RecurrenceRule recurrenceRule,
+            PaymentTerms paymentTerms
     ) {
         return new InvoiceSchedule(
                 notNull(id),
                 notNull(vendorId),
                 notNull(trackedInvoiceKey),
                 notNull(recurrenceRule),
-                true
+                true,
+                notNull(paymentTerms)
         );
     }
 
@@ -100,5 +105,9 @@ public class InvoiceSchedule {
 
     public boolean isActive() {
         return active;
+    }
+
+    public PaymentTerms getPaymentTerms() {
+        return paymentTerms;
     }
 }

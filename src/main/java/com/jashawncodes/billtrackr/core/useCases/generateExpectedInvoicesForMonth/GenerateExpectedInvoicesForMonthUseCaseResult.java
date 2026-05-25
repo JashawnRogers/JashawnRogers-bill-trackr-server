@@ -1,41 +1,22 @@
 package com.jashawncodes.billtrackr.core.useCases.generateExpectedInvoicesForMonth;
 
-import com.jashawncodes.billtrackr.core.model.expectedInvoice.InvoiceStatus;
-import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
-
-import java.time.LocalDate;
-import java.util.UUID;
+import java.time.YearMonth;
 
 public record GenerateExpectedInvoicesForMonthUseCaseResult(
-        UUID id,
-        String trackedInvoiceKey,
-        LocalDate expectedReceiveDate,
-        LocalDate dueDate,
-        PaymentTerms paymentTerms,
-        LocalDate receivedDate,
-        InvoiceStatus invoiceStatus,
-        String note
+        YearMonth yearMonth,
+        int createdCount,
+        int alreadyExistedCount
 
 ) {
     public static GenerateExpectedInvoicesForMonthUseCaseResult of(
-            UUID id,
-            String trackedInvoiceKey,
-            LocalDate expectedReceiveDate,
-            LocalDate dueDate,
-            PaymentTerms paymentTerms,
-            LocalDate receivedDate,
-            InvoiceStatus invoiceStatus,
-            String note
+            YearMonth yearMonth,
+            int createdCount,
+            int alreadyExistedCount
     ) {
         return new GenerateExpectedInvoicesForMonthUseCaseResult(
-                id,
-                trackedInvoiceKey,
-                expectedReceiveDate,
-                dueDate,
-                paymentTerms,
-                receivedDate,
-                invoiceStatus,
-                note
+                yearMonth,
+                createdCount,
+                alreadyExistedCount
         );
     }
 }
