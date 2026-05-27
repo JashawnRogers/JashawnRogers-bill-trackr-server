@@ -1,5 +1,6 @@
 package com.jashawncodes.billtrackr.core.useCases.expectedInvoice;
 
+import com.jashawncodes.billtrackr.core.useCases.NormalizeSearchTerm;
 import com.jashawncodes.billtrackr.core.useCases.PageRequest;
 import com.jashawncodes.billtrackr.core.useCases.SortDirection;
 
@@ -21,11 +22,7 @@ public record ListExpectedInvoicesQuery(
             SortDirection sort,
             PageRequest pageRequest
     ) {
-        String normalizedSearchTerm = normalizeSearchTerm(searchTerm);
-
-        if (normalizedSearchTerm != null && normalizedSearchTerm.length() > MAX_SEARCH_LENGTH) {
-            throw new IllegalArgumentException("Search term cannot exceeds 100 characters");
-        }
+        String normalizedSearchTerm = NormalizeSearchTerm.normalize(searchTerm);
 
         return new ListExpectedInvoicesQuery(
                 yearMonth == null ? YearMonth.now() : yearMonth,
@@ -34,13 +31,5 @@ public record ListExpectedInvoicesQuery(
                 sort == null ?  SortDirection.DESC : sort,
                 pageRequest
         );
-    }
-
-    private static String normalizeSearchTerm(String search) {
-        if (search == null || search.isBlank()) {
-            return null;
-        }
-
-        return search.trim();
     }
 }

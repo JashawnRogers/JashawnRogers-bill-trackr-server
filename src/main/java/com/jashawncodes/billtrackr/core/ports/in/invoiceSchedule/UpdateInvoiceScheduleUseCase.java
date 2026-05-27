@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.ports.in;
+package com.jashawncodes.billtrackr.core.ports.in.invoiceSchedule;
 
 import com.jashawncodes.billtrackr.core.useCases.invoiceSchedule.updateInvoiceSchedule.UpdateInvoiceScheduleCommand;
 import com.jashawncodes.billtrackr.core.useCases.invoiceSchedule.updateInvoiceSchedule.UpdateInvoiceScheduleResult;

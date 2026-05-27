@@ -2,7 +2,7 @@ package com.jashawncodes.billtrackr.core.useCases.vendor.updateVendor;
 
 import com.jashawncodes.billtrackr.core.NotFoundException;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
-import com.jashawncodes.billtrackr.core.ports.in.UpdateVendorUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.vendor.UpdateVendorUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;
 import com.jashawncodes.billtrackr.core.useCases.vendor.createVendor.DuplicateVendorException;
 

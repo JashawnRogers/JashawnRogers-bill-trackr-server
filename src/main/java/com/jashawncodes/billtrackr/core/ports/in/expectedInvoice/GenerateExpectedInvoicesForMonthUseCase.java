@@ -1,4 +1,4 @@
-package com.jashawncodes.billtrackr.core.ports.in;
+package com.jashawncodes.billtrackr.core.ports.in.expectedInvoice;
 
 import com.jashawncodes.billtrackr.core.useCases.expectedInvoice.generateExpectedInvoicesForMonth.GenerateExpectedInvoicesForMonthUseCaseResult;
 

@@ -1,7 +1,7 @@
 package com.jashawncodes.billtrackr.core.useCases.expectedInvoice.listExpectedMissingInvoicesForMonth;
 
 import com.jashawncodes.billtrackr.core.model.expectedInvoice.InvoiceStatus;
-import com.jashawncodes.billtrackr.core.ports.in.ListMissingExpectedInvoicesForMonthUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.expectedInvoice.ListMissingExpectedInvoicesForMonthUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.ExpectedInvoiceGatewayOutputPort;
 
 import java.time.LocalDate;

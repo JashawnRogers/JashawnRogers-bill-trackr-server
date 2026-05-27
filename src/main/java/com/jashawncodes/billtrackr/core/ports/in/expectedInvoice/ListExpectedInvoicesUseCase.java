@@ -1,6 +1,5 @@
-package com.jashawncodes.billtrackr.core.ports.in;
+package com.jashawncodes.billtrackr.core.ports.in.expectedInvoice;
 
-import com.jashawncodes.billtrackr.core.useCases.PageRequest;
 import com.jashawncodes.billtrackr.core.useCases.PageResponse;
 import com.jashawncodes.billtrackr.core.useCases.expectedInvoice.ListExpectedInvoicesQuery;
 import com.jashawncodes.billtrackr.core.useCases.expectedInvoice.listExpectedInvoices.ExpectedInvoiceReadModel;

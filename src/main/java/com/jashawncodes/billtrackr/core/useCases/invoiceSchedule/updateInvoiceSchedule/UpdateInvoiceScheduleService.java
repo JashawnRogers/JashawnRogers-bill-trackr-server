@@ -2,7 +2,7 @@ package com.jashawncodes.billtrackr.core.useCases.invoiceSchedule.updateInvoiceS
 
 import com.jashawncodes.billtrackr.core.NotFoundException;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
-import com.jashawncodes.billtrackr.core.ports.in.UpdateInvoiceScheduleUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.invoiceSchedule.UpdateInvoiceScheduleUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.InvoiceScheduleGatewayOutputPort;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;
 import com.jashawncodes.billtrackr.core.useCases.invoiceSchedule.createInvoiceSchedule.DuplicateTrackedInvoiceKeyException;

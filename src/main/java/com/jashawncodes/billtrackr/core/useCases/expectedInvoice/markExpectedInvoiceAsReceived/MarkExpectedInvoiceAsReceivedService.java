@@ -3,7 +3,7 @@ package com.jashawncodes.billtrackr.core.useCases.expectedInvoice.markExpectedIn
 import com.jashawncodes.billtrackr.core.NotFoundException;
 import com.jashawncodes.billtrackr.core.NullParameterException;
 import com.jashawncodes.billtrackr.core.model.expectedInvoice.ExpectedInvoice;
-import com.jashawncodes.billtrackr.core.ports.in.MarkExpectedInvoiceAsReceivedUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.expectedInvoice.MarkExpectedInvoiceAsReceivedUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.ExpectedInvoiceGatewayOutputPort;
 
 import java.time.LocalDate;

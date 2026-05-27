@@ -4,7 +4,7 @@ import com.jashawncodes.billtrackr.core.model.invoiceSchedule.RecurrenceRule;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.TrackedInvoiceKey;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
-import com.jashawncodes.billtrackr.core.ports.in.CreateInvoiceScheduleUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.invoiceSchedule.CreateInvoiceScheduleUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.InvoiceScheduleGatewayOutputPort;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;

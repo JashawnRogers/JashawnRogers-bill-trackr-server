@@ -3,7 +3,7 @@ package com.jashawncodes.billtrackr.core.useCases.vendor.createVendor;
 import com.jashawncodes.billtrackr.core.model.vendor.PaymentTerms;
 import com.jashawncodes.billtrackr.core.model.vendor.Vendor;
 import com.jashawncodes.billtrackr.core.model.vendor.VendorName;
-import com.jashawncodes.billtrackr.core.ports.in.CreateVendorUseCase;
+import com.jashawncodes.billtrackr.core.ports.in.vendor.CreateVendorUseCase;
 import com.jashawncodes.billtrackr.core.ports.out.IdGeneratorOutputPort;
 import com.jashawncodes.billtrackr.core.ports.out.gateways.VendorGatewayOutputPort;
 
