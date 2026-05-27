@@ -1,6 +1,6 @@
 package com.jashawncodes.billtrackr.core.ports.in;
 
-import com.jashawncodes.billtrackr.core.useCases.generateExpectedInvoicesForMonth.GenerateExpectedInvoicesForMonthUseCaseResult;
+import com.jashawncodes.billtrackr.core.useCases.expectedInvoice.generateExpectedInvoicesForMonth.GenerateExpectedInvoicesForMonthUseCaseResult;
 
 import java.time.YearMonth;
 
