@@ -12,7 +12,6 @@ public record ListInvoiceScheduleReadModel(
         VendorName vendorName,
         TrackedInvoiceKey trackedInvoiceKey,
         RecurrenceRule recurrenceRule,
-        boolean active,
-        PaymentTerms paymentTerms
+        boolean active
 ) {
 }
