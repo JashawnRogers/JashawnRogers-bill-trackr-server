@@ -1,7 +1,10 @@
 package com.jashawncodes.billtrackr.core.ports.out.gateways;
 
 import com.jashawncodes.billtrackr.core.model.invoiceSchedule.InvoiceSchedule;
+import com.jashawncodes.billtrackr.core.useCases.PageResponse;
 import com.jashawncodes.billtrackr.core.useCases.expectedInvoice.generateExpectedInvoicesForMonth.InvoiceScheduleForGeneration;
+import com.jashawncodes.billtrackr.core.useCases.invoiceSchedule.listInvoiceSchedules.ListInvoiceScheduleQuery;
+import com.jashawncodes.billtrackr.core.useCases.invoiceSchedule.listInvoiceSchedules.ListInvoiceScheduleReadModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +18,6 @@ public interface InvoiceScheduleGatewayOutputPort {
     Optional<InvoiceSchedule> findById(UUID id);
 
     List<InvoiceScheduleForGeneration> loadActiveSchedulesWithPaymentTerms();
+
+    PageResponse<ListInvoiceScheduleReadModel> findAllPaginated(ListInvoiceScheduleQuery query);
 }
