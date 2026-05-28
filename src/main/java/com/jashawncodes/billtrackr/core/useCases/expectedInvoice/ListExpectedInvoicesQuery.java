@@ -13,8 +13,6 @@ public record ListExpectedInvoicesQuery(
         SortDirection sort,
         PageRequest pageRequest
 ) {
-    private static final int MAX_SEARCH_LENGTH = 100;
-
     public static ListExpectedInvoicesQuery of(
             YearMonth yearMonth,
             ExpectedInvoiceListFilter filter,
