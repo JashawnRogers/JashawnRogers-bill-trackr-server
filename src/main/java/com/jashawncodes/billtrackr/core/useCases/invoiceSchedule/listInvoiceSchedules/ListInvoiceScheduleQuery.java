@@ -21,7 +21,7 @@ public record ListInvoiceScheduleQuery(
 
         return new ListInvoiceScheduleQuery(
                 normalizedSearchTerm,
-                filter == null ? ActiveFilter.ALL : filter,
+                filter == null ? ActiveFilter.ACTIVE : filter,
                 sort == null ? SortDirection.DESC : sort,
                 pageRequest
         );

@@ -24,7 +24,7 @@ public record ListVendorsQuery(
                 sort == null ? SortDirection.DESC : sort,
                 normalizedSearchTerm,
                 pageRequest,
-                filter == null ? ActiveFilter.ALL : filter
+                filter == null ? ActiveFilter.ACTIVE : filter
         );
     }
 }
